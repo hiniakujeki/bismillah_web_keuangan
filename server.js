@@ -12,7 +12,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Konfigurasi Database Lokal
+// ==========================================
+// RUTE AMAN UNTUK VERCEL (Mencegah 404)
+// ==========================================
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+// Konfigurasi Database Cloud / Lokal
 const dbOptions = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
